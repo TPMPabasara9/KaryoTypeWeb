@@ -28,7 +28,7 @@ export function Navbar() {
                 ChromoTraQ
               </span>
               <span className="mt-0.5 text-sm sm:text-base uppercase tracking-[0.1em] text-blue-700">
-                Chromosome Detection System
+               Smart Karyotyping System
               </span>
             </div>
           </div>
