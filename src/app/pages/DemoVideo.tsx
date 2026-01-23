@@ -1,5 +1,5 @@
 import React from "react";
-import DemoVideoFile from "../../assets/Demovideo.mp4";
+import DemoVideoFile from "../../assets/Demo video.mp4";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { useNavigate } from "react-router-dom";
