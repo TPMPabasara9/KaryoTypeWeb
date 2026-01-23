@@ -8,6 +8,7 @@ import { CTA } from "./components/CTA";
 import { Footer } from "./components/Footer";
 import { Navbar } from "./components/Navbar";
 import ContactFormPage from "./pages/ContactFormPage";
+import DemoVideo  from "./pages/DemoVideo";
 
 function HomePage() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/demo" element={<ContactFormPage />} />
+        <Route path="/video" element={<DemoVideo />} />
       </Routes>
     </BrowserRouter>
   );
