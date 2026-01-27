@@ -96,12 +96,7 @@ export function Technology() {
               <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent"></div>
               
               {/* Floating tech badges */}
-              <div className="absolute top-6 left-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-3">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium">AI Processing Active</span>
-                </div>
-              </div>
+
             </div>
 
             {/* Decorative glow effects */}
