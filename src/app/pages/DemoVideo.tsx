@@ -1,5 +1,4 @@
 import React from "react";
-import DemoVideoFile from "../../assets/Demo video.mp4";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -36,12 +35,12 @@ export default function DemoVideo() {
                 {/* Video Container */}
                 <div className="rounded-2xl overflow-hidden shadow-2xl border border-blue-500 border-opacity-30 bg-black bg-opacity-50">
                     <div style={{ aspectRatio: "16/9" }} className="relative">
-                        <video
+                        <iframe
                             className="w-full h-full"
-                            src={DemoVideoFile}
+                            src="https://www.youtube.com/embed/CzL1CJ--314?si=-eXVkz1XfqNEzDci"
                             title="Demo Video"
-                            controls
-                            controlsList="nodownload"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
                         />
                     </div>
                 </div>
