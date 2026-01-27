@@ -2,7 +2,7 @@ import { Button } from "./ui/button";
 import { ArrowRight, Microscope, Menu } from "lucide-react";
 import {ImageWithFallback} from "./figma/ImageWithFallback";
 import { useNavigate } from "react-router-dom";
-import heroImage from "../../assets/S.png";
+import heroImage from "../../assets/MonitorView.png"
 
 export function Hero() {
 
@@ -39,7 +39,7 @@ export function Hero() {
                 Get Started
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button size="lg" variant="outline" className="text-base">
+              <Button size="lg" variant="outline" className="text-base" onClick={()=>navigate("/video")}>
                 Watch Demo
               </Button>
             </div>
