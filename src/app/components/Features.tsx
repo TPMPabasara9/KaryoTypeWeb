@@ -1,10 +1,9 @@
 import { Dna, Sparkles, BarChart3, Clock, Shield, Zap, Eye } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
-import chromeDetectionImg from "../../assets/ChromeDetection1.png";
-import classificationImg from "../../assets/Classification.png";
+import chromeDetectionImg from "../../assets/Intelligent Chromosome Segmentation.png";
+import classificationImg from "../../assets/Smart Chromosome Classification.png";
 import reportImg from "../../assets/report.png";
 import compareImg from "../../assets/compare.png";
-
 
 export function Features() {
   const features = [
