@@ -64,7 +64,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <Webhook className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <a href="mailto:info@karyoai.com" className="hover:text-white transition-colors">
+                <a href="https://quantine-technologies-website.vercel.app/" className="hover:text-white transition-colors">
                   http://www.quantinetechnologies.com
                 </a>
               </li>
