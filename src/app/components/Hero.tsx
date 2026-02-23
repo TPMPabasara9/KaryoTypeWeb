@@ -35,7 +35,7 @@ export function Hero() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="text-base group" onClick={() => navigate("/demo")}>
+              <Button size="lg" className="text-base group" onClick={() => navigate("/example")}>
                 Get Started
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>

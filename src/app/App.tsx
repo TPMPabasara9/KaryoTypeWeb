@@ -9,6 +9,7 @@ import { Footer } from "./components/Footer";
 import { Navbar } from "./components/Navbar";
 import ContactFormPage from "./pages/ContactFormPage";
 import DemoVideo  from "./pages/DemoVideo";
+import { ExampleDemo } from "./pages/exampleDemo";
 
 function HomePage() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/demo" element={<ContactFormPage />} />
         <Route path="/video" element={<DemoVideo />} />
+        <Route path="/example" element={<ExampleDemo />} />
       </Routes>
     </BrowserRouter>
   );
