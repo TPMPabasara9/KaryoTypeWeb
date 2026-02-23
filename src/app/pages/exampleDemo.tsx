@@ -101,6 +101,8 @@ const onsubmit = async () => {
       const formData = new FormData();
       formData.append( "image", selectedFile as File);
 
+      setLoading(true);
+
       // Send to backend
       const classifyResponse = await fetch(
         "http://localhost:8000/api/predict/get_classifications",
@@ -115,6 +117,8 @@ const onsubmit = async () => {
       setReportImage(reportUrl);
     } catch (error) {
       console.error("Error:", error);
+    }finally{
+      setLoading(false);
     }
   };
 
