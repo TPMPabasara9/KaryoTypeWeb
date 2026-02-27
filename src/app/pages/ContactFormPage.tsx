@@ -37,7 +37,7 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen  bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-6 lg:px-">
       <div className="max-w-md mx-auto">
         {/* Back Button */}
         <Button
@@ -50,10 +50,10 @@ export default function ContactForm() {
         </Button>
 
         {/* Form Container */}
-        <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Request Demo</h1>
+        <div className="bg-white  rounded-xl shadow-lg p-8 border border-gray-100 w-[600px]">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Request Demo /License Key</h1>
           <p className="text-gray-600 mb-8 text-sm">
-            Fill out the form below and our team will get back to you within 24 hours.
+            Fill out the form below and our team will get back to you within 24 hours or send the product key to get license key for the product.
           </p>
 
           <form onSubmit={onSubmit} className="space-y-6">
@@ -97,6 +97,20 @@ export default function ContactForm() {
                 type="text"
                 name="organization"
                 placeholder="Your Hospital/Lab"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
+              />
+            </div>
+            {/* Product Id field*/}
+            <div>
+              <label htmlFor="product" className="block text-sm font-medium text-gray-700 mb-2">
+                Product id (optional)
+              </label>
+              <input
+                id="product"
+                type="text"
+                name="product"
+                
+                placeholder="Product id"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
               />
             </div>
