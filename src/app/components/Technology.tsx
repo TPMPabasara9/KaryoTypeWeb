@@ -70,20 +70,7 @@ export function Technology() {
               ))}
             </div>
 
-            <div className="flex items-center gap-8 pt-6 border-t border-white/10">
-              <div>
-                <div className="text-3xl font-bold text-blue-400">46</div>
-                <div className="text-sm text-gray-400">Chromosome Types</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-blue-400">10K+</div>
-                <div className="text-sm text-gray-400">Training Images</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-blue-400">99.2%</div>
-                <div className="text-sm text-gray-400">AI Accuracy</div>
-              </div>
-            </div>
+       
           </div>
 
           <div className="relative">

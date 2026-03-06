@@ -64,8 +64,8 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <Webhook className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <a href="https://quantine-technologies-website.vercel.app/" className="hover:text-white transition-colors">
-                  http://www.quantinetechnologies.com
+                <a href="https://www.quantinetech.com/" className="hover:text-white transition-colors">
+                 https://www.quantinetech.com
                 </a>
               </li>
               <li className="flex items-start gap-2">
@@ -89,12 +89,12 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-400">
-            © 2026 KaryoAI. All rights reserved.
+            © 2026 ChromoTraq. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">HIPAA Compliance</a>
+            
           </div>
         </div>
       </div>

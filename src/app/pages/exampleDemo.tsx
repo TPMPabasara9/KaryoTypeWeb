@@ -1,6 +1,9 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import UTIF from "utif";
 import { Spinner } from "../components/Spinner";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export function ExampleDemo() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -8,6 +11,8 @@ export function ExampleDemo() {
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [reportImage, setReportImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
 
 const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +71,7 @@ const onsubmit = async () => {
     const formData = new FormData();
     formData.append("image", selectedFile);
 
-    setLoading(true);
+    setLoading(true);c
 
     try {
       const response = await fetch(
@@ -131,8 +136,18 @@ const onsubmit = async () => {
  },[preview]);
  
 
+
+
  return (
   <div className="min-h-screen bg-gray-50 p-6">
+        <Button
+          variant="ghost"
+          className="mb-8 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+          onClick={() => navigate("/")}
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Home
+        </Button>
     {/* Page Title */}
     <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">
       Karyotyping Analysis Workflow
@@ -151,6 +166,13 @@ const onsubmit = async () => {
         </p>
 
         <label className="flex flex-col items-center justify-center w-full h-[320px] border-2 border-dashed border-blue-300 rounded-xl cursor-pointer bg-blue-50 hover:bg-blue-100 transition mb-4 overflow-hidden">
+                 {
+            loading && (
+              <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center">
+                <Spinner />
+              </div>
+            )
+          }
           { resultImage ? (
             <img
               src={resultImage}

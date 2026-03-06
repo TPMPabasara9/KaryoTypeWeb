@@ -119,12 +119,7 @@ export function Navbar() {
                 Resources
               </a>
               <div className="flex flex-col gap-2 mt-4 px-4">
-                <Button 
-                  variant="outline" 
-                  className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 font-medium"
-                >
-                  Sign In
-                </Button>
+           
                 <Button 
                   className="w-full bg-blue-700 hover:bg-blue-800 text-white font-medium"
                   onClick={() => navigate("/demo")}
