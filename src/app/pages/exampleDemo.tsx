@@ -71,7 +71,7 @@ const onsubmit = async () => {
     const formData = new FormData();
     formData.append("image", selectedFile);
 
-    setLoading(true);c
+    setLoading(true);
 
     try {
       const response = await fetch(
