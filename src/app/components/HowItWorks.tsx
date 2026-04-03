@@ -12,28 +12,28 @@ export function HowItWorks() {
       title: "Capture Images",
       description: "Import metaphase spread images from your microscopy system in standard formats. Our system supports high-resolution images from various microscopy platforms.",
       step: "01",
-      image: "/src/assets/Capturing.png"
+      image: "https://res.cloudinary.com/df0mpizmq/image/upload/v1775119212/imk_uploads/Capturing_vm7fzh.png"
     },
     {
       icon: Cpu,
       title: "AI Processing",
       description: "Our AI automatically segments, classifies, and arranges chromosomes with precision. Advanced deep learning algorithms analyze metaphase spreads in real-time.",
       step: "02",
-      image: "/src/assets/AIProcessing.png"
+      image: "https://res.cloudinary.com/df0mpizmq/image/upload/v1775119210/imk_uploads/AIProcessing_tald2c.png"
     },
     {
       icon: CheckCircle2,
       title: "Review & Validate",
       description: "Review AI results, make adjustments if needed, and validate findings. Our intuitive interface makes it easy to refine and confirm results.",
       step: "03",
-      image: "/src/assets/Validate.png"
+      image: "https://res.cloudinary.com/df0mpizmq/image/upload/v1775119209/imk_uploads/Validate_utfq4a.png"
     },
     {
       icon: Download,
       title: "Generate Report",
       description: "Export comprehensive reports with karyogram, analysis, and clinical notes. Generate professional documentation ready for clinical use.",
       step: "04",
-      image: "/src/assets/report.png"
+      image: "https://res.cloudinary.com/df0mpizmq/image/upload/v1775119206/imk_uploads/report_j1pqpk.png"
     }
   ];
 
