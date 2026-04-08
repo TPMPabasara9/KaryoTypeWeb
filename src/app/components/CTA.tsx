@@ -1,7 +1,9 @@
 import { Button } from "./ui/button";
 import { ArrowRight, Mail, Calendar } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function CTA() {
+  const navigate = useNavigate();
   return (
     <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600">
       <div className="container mx-auto px-6">
@@ -18,19 +20,13 @@ export function CTA() {
             <Button 
               size="lg" 
               className="bg-white text-blue-600 hover:bg-gray-100 text-base group px-8"
+              onClick={() => navigate("/demo")}
             >
               <Calendar className="w-5 h-5 mr-2" />
               Schedule a Demo
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-2 border-white text-white hover:bg-white/10 text-base px-8"
-            >
-              <Mail className="w-5 h-5 mr-2" />
-              Contact Sales
-            </Button>
+          
           </div>
 
         </div>
