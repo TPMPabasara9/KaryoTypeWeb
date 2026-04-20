@@ -74,7 +74,7 @@ export function Navbar() {
               Clinical Benefits
             </button>
             <a
-              href="/src/assets/chromotraq.pdf"
+              href={pdfPath}
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2.5 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 rounded-md transition-colors"
