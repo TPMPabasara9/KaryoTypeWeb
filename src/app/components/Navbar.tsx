@@ -39,7 +39,7 @@ export function Navbar() {
           {/* Logo and Brand */}
           <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
             <img
-              src="/src/assets/logo1.png"
+              src={logo}
               alt="ChromoTraQ Logo"
               className="h-12 w-12 sm:h-18 sm:w-18 rounded-lg p-1 sm:p-2 shadow-md ring-1 ring-gray-200 object-contain"
             />
