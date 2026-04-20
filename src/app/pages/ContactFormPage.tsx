@@ -37,23 +37,26 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="min-h-screen  bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-6 lg:px-">
-      <div className="max-w-md mx-auto">
-        {/* Back Button */}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+
+      {/* Desktop-only Back to Home Button, fixed top left */}
+      <div className="hidden lg:block">
         <Button
           variant="ghost"
-          className="mb-8 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+          className="fixed top-28 left-8 z-40 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
           onClick={() => navigate("/")}
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
         </Button>
+      </div>
+      <div className="w-full max-w-2xl mx-auto">
 
         {/* Form Container */}
-        <div className="bg-white  rounded-xl shadow-lg p-8 border border-gray-100 w-[600px]">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Request Demo /License Key</h1>
+        <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 border border-gray-100">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Request Demo</h1>
           <p className="text-gray-600 mb-8 text-sm">
-            Fill out the form below and our team will get back to you within 24 hours or send the product key to get license key for the product.
+            Fill out the form below and our team will get back to you within 24 hours.
           </p>
 
           <form onSubmit={onSubmit} className="space-y-6">
@@ -67,7 +70,7 @@ export default function ContactForm() {
                 type="text"
                 name="name"
                 required
-                placeholder="John Doe"
+                placeholder="Your Name"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
               />
             </div>
@@ -82,13 +85,13 @@ export default function ContactForm() {
                 type="email"
                 name="email"
                 required
-                placeholder="john@example.com"
+                placeholder="your_email@example.com"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
               />
             </div>
 
             {/* Organization Field */}
-            <div>
+            {/* <div>
               <label htmlFor="organization" className="block text-sm font-medium text-gray-700 mb-2">
                 Organization (Optional)
               </label>
@@ -99,9 +102,9 @@ export default function ContactForm() {
                 placeholder="Your Hospital/Lab"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
               />
-            </div>
+            </div> */}
             {/* Product Id field*/}
-            <div>
+            {/* <div>
               <label htmlFor="product" className="block text-sm font-medium text-gray-700 mb-2">
                 Product id (optional)
               </label>
@@ -113,7 +116,7 @@ export default function ContactForm() {
                 placeholder="Product id"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
               />
-            </div>
+            </div> */}
 
             {/* Message Field */}
             <div>
@@ -125,12 +128,12 @@ export default function ContactForm() {
                 name="message"
                 required
                 placeholder="Tell us about your specific needs..."
-                rows={5}
+                rows={3}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors resize-none"
               />
             </div>
             {/*Mobile Number Field */}
-            <div>
+            {/* <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                     Mobile Number (Optional)
                 </label>
@@ -141,7 +144,7 @@ export default function ContactForm() {
                     placeholder="+1 234 567 8900"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
                 />
-            </div>
+            </div> */}
 
             {/* Success Message */}
             {result === "success" && (
