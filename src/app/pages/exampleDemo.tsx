@@ -34,12 +34,28 @@ import {
 } from "../components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "../components/ui/avatar";
 
+interface DetectedPoint {
+  polygon: Array<[number, number]>;
+  score: number;
+  bbox: [number, number, number, number];
+}
+
 export function ExampleDemo() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [reportImage, setReportImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [detectedPoints, setDetectedPoints] = useState<DetectedPoint[]>([]);
+  const [previewDimensions, setPreviewDimensions] = useState({ width: 0, height: 0 });
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const navigate = useNavigate();
+
+  const handleClickUploadArea = () => {
+    fileInputRef.current?.click();
+  };
   const [activeTool, setActiveTool] = useState<
     "select" | "cut" | "erase" | "extend" | "merge"
   >("select");
@@ -101,6 +117,47 @@ export function ExampleDemo() {
     setPreview(pngUrl);
   };
 
+const drawPolygons = (imageElement: HTMLImageElement, points: DetectedPoint[]) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    canvas.width = imageElement.width;
+    canvas.height = imageElement.height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Draw each polygon
+    points.forEach((detection, index) => {
+      const polygon = detection.polygon;
+      if (polygon.length === 0) return;
+
+      // Set stroke color and width
+      ctx.strokeStyle = `hsl(${(index * 360) / points.length}, 100%, 50%)`;
+      ctx.lineWidth = 2;
+      ctx.fillStyle = `hsla(${(index * 360) / points.length}, 100%, 50%, 0.1)`;
+
+      // Draw polygon
+      ctx.beginPath();
+      ctx.moveTo(polygon[0][0], polygon[0][1]);
+      for (let i = 1; i < polygon.length; i++) {
+        ctx.lineTo(polygon[i][0], polygon[i][1]);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Draw score label
+      if (polygon.length > 0) {
+        const labelX = polygon[0][0];
+        const labelY = polygon[0][1] - 10;
+        ctx.fillStyle = `hsl(${(index * 360) / points.length}, 100%, 50%)`;
+        ctx.font = "12px Arial";
+        ctx.fillText(`Score: ${detection.score.toFixed(2)}`, labelX, labelY);
+      }
+    });
+  };
+
+  const onsubmit = async () => {
   const onsubmit = async (): Promise<string | null> => {
     if (!selectedFile) {
       alert("Please select a file first");
@@ -114,7 +171,7 @@ export function ExampleDemo() {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/api/predict/get_detections",
+        "http://127.0.0.1:8000/api/predict/get_detectedPoints",
         {
           method: "POST",
           body: formData,
@@ -122,25 +179,32 @@ export function ExampleDemo() {
       );
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`HTTP ${response.status}: ${errorText}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
-      const imageBlob = await response.blob();
-      
-      
-      if (imageBlob.size === 0) {
-        throw new Error("Response blob is empty");
+
+      const data = await response.json();
+      console.log("Detected points:", data);
+
+      if (data.detections && data.detections.length > 0) {
+        setDetectedPoints(data.detections);
+        setResultImage(preview); // Display the preview with polygons
+
+        // Draw polygons on canvas after image loads
+        if (preview) {
+          const img = new Image();
+          img.onload = () => {
+            setPreviewDimensions({ width: img.width, height: img.height });
+            drawPolygons(img, data.detections);
+          };
+          img.src = preview;
+        }
+      } else {
+        alert("No chromosomes detected");
+        setDetectedPoints([]);
       }
-      
-      const imageUrl = URL.createObjectURL(imageBlob);
-      setResultImage(imageUrl);
-      return imageUrl;
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : String(error);
-      
-      alert(`Detection failed: ${errorMsg}`);
-      return null;
+      console.error("Error:", error);
+      alert("Failed to detect chromosomes. Please try again.");
     } finally {
       setLoading(false);
     }
