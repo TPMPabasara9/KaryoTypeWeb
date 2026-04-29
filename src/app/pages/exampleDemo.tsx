@@ -5,15 +5,28 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { useNavigate } from "react-router-dom";
 
+interface DetectedPoint {
+  polygon: Array<[number, number]>;
+  score: number;
+  bbox: [number, number, number, number];
+}
+
 export function ExampleDemo() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [reportImage, setReportImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [detectedPoints, setDetectedPoints] = useState<DetectedPoint[]>([]);
+  const [previewDimensions, setPreviewDimensions] = useState({ width: 0, height: 0 });
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
 
+  const handleClickUploadArea = () => {
+    fileInputRef.current?.click();
+  };
 
 const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
   const file = event.target.files?.[0];
@@ -62,7 +75,47 @@ const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
 
 
 
-const onsubmit = async () => {
+const drawPolygons = (imageElement: HTMLImageElement, points: DetectedPoint[]) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    canvas.width = imageElement.width;
+    canvas.height = imageElement.height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Draw each polygon
+    points.forEach((detection, index) => {
+      const polygon = detection.polygon;
+      if (polygon.length === 0) return;
+
+      // Set stroke color and width
+      ctx.strokeStyle = `hsl(${(index * 360) / points.length}, 100%, 50%)`;
+      ctx.lineWidth = 2;
+      ctx.fillStyle = `hsla(${(index * 360) / points.length}, 100%, 50%, 0.1)`;
+
+      // Draw polygon
+      ctx.beginPath();
+      ctx.moveTo(polygon[0][0], polygon[0][1]);
+      for (let i = 1; i < polygon.length; i++) {
+        ctx.lineTo(polygon[i][0], polygon[i][1]);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Draw score label
+      if (polygon.length > 0) {
+        const labelX = polygon[0][0];
+        const labelY = polygon[0][1] - 10;
+        ctx.fillStyle = `hsl(${(index * 360) / points.length}, 100%, 50%)`;
+        ctx.font = "12px Arial";
+        ctx.fillText(`Score: ${detection.score.toFixed(2)}`, labelX, labelY);
+      }
+    });
+  };
+
+  const onsubmit = async () => {
     if (!selectedFile) {
       alert("Please select a file first");
       return;
@@ -75,18 +128,40 @@ const onsubmit = async () => {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/predict/get_detections",
+        "http://127.0.0.1:8000/api/predict/get_detectedPoints",
         {
           method: "POST",
           body: formData,
         }
       );
-      
-      const imageBlob = await response.blob();
-      const imageUrl = URL.createObjectURL(imageBlob);
-      setResultImage(imageUrl);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Detected points:", data);
+
+      if (data.detections && data.detections.length > 0) {
+        setDetectedPoints(data.detections);
+        setResultImage(preview); // Display the preview with polygons
+
+        // Draw polygons on canvas after image loads
+        if (preview) {
+          const img = new Image();
+          img.onload = () => {
+            setPreviewDimensions({ width: img.width, height: img.height });
+            drawPolygons(img, data.detections);
+          };
+          img.src = preview;
+        }
+      } else {
+        alert("No chromosomes detected");
+        setDetectedPoints([]);
+      }
     } catch (error) {
       console.error("Error:", error);
+      alert("Failed to detect chromosomes. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -165,20 +240,32 @@ const onsubmit = async () => {
           Upload a high-resolution chromosome image
         </p>
 
-        <label className="flex flex-col items-center justify-center w-full h-[320px] border-2 border-dashed border-blue-300 rounded-xl cursor-pointer bg-blue-50 hover:bg-blue-100 transition mb-4 overflow-hidden">
-                 {
+        <div className="relative flex flex-col items-center justify-center w-full h-[320px] border-2 border-dashed border-blue-300 rounded-xl cursor-pointer bg-blue-50 hover:bg-blue-100 transition mb-4 overflow-hidden" onClick={handleClickUploadArea}>
+          {
             loading && (
-              <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center">
+              <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-40">
                 <Spinner />
               </div>
             )
           }
           { resultImage ? (
-            <img
-              src={resultImage}
-              alt="Result"
-              className="max-h-full max-w-full object-contain cursor-zoom-in hover:scale-[1.02] transition-transform"
-            />
+            <div className="relative w-full h-full flex items-center justify-center">
+              <img
+                src={resultImage}
+                alt="Result"
+                className="max-h-full max-w-full object-contain cursor-zoom-in hover:scale-[1.02] transition-transform"
+              />
+              {detectedPoints.length > 0 && (
+                <canvas
+                  ref={canvasRef}
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-full max-w-full cursor-crosshair"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                  }}
+                />
+              )}
+            </div>
           ): preview ? (
               <img
               src={preview}
@@ -195,24 +282,18 @@ const onsubmit = async () => {
               </p>
             </div>
           )}
-          {
-            loading && (
-              <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center">
-                <Spinner />
-              </div>
-            )
-          }
      
 
 
           <input
+            ref={fileInputRef}
             type="file"
             name="image"
             className="hidden"
             onChange={handleFileChange}
             accept="image/*"
           />
-        </label>
+        </div>
         
 
         {selectedFile && (
