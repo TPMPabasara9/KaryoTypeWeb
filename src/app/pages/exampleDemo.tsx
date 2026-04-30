@@ -676,7 +676,7 @@ export function ExampleDemo() {
       return { leftFlex: "0 0 280px", rightFlex: "1 1 auto", leftHidden: false, rightHidden: false };
     }
     // Default split: image flex-1, report 480px fixed
-    return { leftFlex: "1 1 auto", rightFlex: "0 0 360px", leftHidden: false, rightHidden: false };
+    return { leftFlex: "1 1 auto", rightFlex: "0 0 480px", leftHidden: false, rightHidden: false };
   };
 
   const layoutStyles = getLayoutStyles();
