@@ -39,7 +39,7 @@ export function Navbar() {
           {/* Logo and Brand */}
           <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
             <img
-              src="/src/assets/logo1.png"
+              src={logo}
               alt="ChromoTraQ Logo"
               className="h-12 w-12 sm:h-18 sm:w-18 rounded-lg p-1 sm:p-2 shadow-md ring-1 ring-gray-200 object-contain"
             />
@@ -74,7 +74,7 @@ export function Navbar() {
               Clinical Benefits
             </button>
             <a
-              href="/src/assets/chromotraq.pdf"
+              href={pdfPath}
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2.5 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 rounded-md transition-colors"
